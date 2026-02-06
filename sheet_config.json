@@ -1,0 +1,12 @@
+{
+  "_comment": "Copy this file to sheet_config.json and replace with your actual Google Sheets CSV URLs",
+  "_instructions": "Each tab in your Google Sheet needs to be published separately. See README-SHEET-MANAGER.md for details",
+
+  "general_csv_url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vTSK7VyGhWLpIYT1ywBwm8D5BEb6FSy1JhG4rQguZ-Y2DZNpDeI198-sgUcGKchMmcIMfR6TMsb-bs9/pub?gid=0&single=true&output=csv",
+  "hero_csv_url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vTSK7VyGhWLpIYT1ywBwm8D5BEb6FSy1JhG4rQguZ-Y2DZNpDeI198-sgUcGKchMmcIMfR6TMsb-bs9/pub?gid=1781400203&single=true&output=csv",
+  "about_csv_url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vTSK7VyGhWLpIYT1ywBwm8D5BEb6FSy1JhG4rQguZ-Y2DZNpDeI198-sgUcGKchMmcIMfR6TMsb-bs9/pub?gid=684787493&single=true&output=csv",
+  "values_csv_url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vTSK7VyGhWLpIYT1ywBwm8D5BEb6FSy1JhG4rQguZ-Y2DZNpDeI198-sgUcGKchMmcIMfR6TMsb-bs9/pub?gid=406598653&single=true&output=csv",
+  "services_csv_url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vTSK7VyGhWLpIYT1ywBwm8D5BEb6FSy1JhG4rQguZ-Y2DZNpDeI198-sgUcGKchMmcIMfR6TMsb-bs9/pub?gid=860114171&single=true&output=csv",
+  "service_details_csv_url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vTSK7VyGhWLpIYT1ywBwm8D5BEb6FSy1JhG4rQguZ-Y2DZNpDeI198-sgUcGKchMmcIMfR6TMsb-bs9/pub?gid=1285450185&single=true&output=csv",
+  "contact_csv_url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vTSK7VyGhWLpIYT1ywBwm8D5BEb6FSy1JhG4rQguZ-Y2DZNpDeI198-sgUcGKchMmcIMfR6TMsb-bs9/pub?gid=2111815025&single=true&output=csv"
+}

@@ -1,0 +1,70 @@
+name: Update Website from Google Sheets
+
+on:
+  # Manual trigger - click "Run workflow" button in Actions tab
+  workflow_dispatch:
+
+  # Automatic schedule - runs every 6 hours
+  schedule:
+    - cron: '0 */6 * * *'  # At minute 0 past every 6th hour
+    # Adjust the schedule as needed:
+    # '0 * * * *'    = Every hour
+    # '0 */2 * * *'  = Every 2 hours
+    # '0 */12 * * *' = Every 12 hours
+    # '0 0 * * *'    = Once per day at midnight
+
+jobs:
+  update-website:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Check if config exists
+        id: check_config
+        run: |
+          if [ -f "sheet_config.json" ]; then
+            echo "config_exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "config_exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Update website from Google Sheets
+        if: steps.check_config.outputs.config_exists == 'true'
+        run: |
+          python update_website.py
+
+      - name: Check for changes
+        id: check_changes
+        run: |
+          git diff --quiet index.html || echo "changes=true" >> $GITHUB_OUTPUT
+
+      - name: Commit and push changes
+        if: steps.check_changes.outputs.changes == 'true'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add index.html
+          git commit -m "🤖 Auto-update website from Google Sheets"
+          git push
+
+      - name: No changes detected
+        if: steps.check_changes.outputs.changes != 'true'
+        run: |
+          echo "✅ No changes detected in website content"
+
+      - name: Config not found
+        if: steps.check_config.outputs.config_exists == 'false'
+        run: |
+          echo "⚠️  sheet_config.json not found!"
+          echo "Please create sheet_config.json with your Google Sheets CSV URLs"
+          echo "See sheet_config.json.example and README-SHEET-MANAGER.md for details"
+          exit 1
