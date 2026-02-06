@@ -7,7 +7,10 @@ Reads content from published Google Sheets and regenerates the website HTML
 import csv
 import urllib.request
 import json
+import os
+import re
 from typing import Dict, List, Any
+from urllib.parse import urlparse, parse_qs
 
 def read_csv_from_url(url: str) -> List[Dict[str, str]]:
     """Read CSV data from a URL and return as list of dictionaries"""
@@ -29,6 +32,86 @@ def load_config() -> Dict[str, str]:
         print("ERROR: sheet_config.json not found!")
         print("Please create sheet_config.json with your Google Sheets CSV URLs")
         exit(1)
+
+def extract_gdrive_file_id(url: str) -> str:
+    """Extract Google Drive file ID from various URL formats"""
+    if not url or not isinstance(url, str):
+        return None
+
+    # Match various Google Drive URL formats
+    patterns = [
+        r'/d/([a-zA-Z0-9_-]+)',  # /d/FILE_ID format
+        r'id=([a-zA-Z0-9_-]+)',   # id=FILE_ID format
+        r'/file/d/([a-zA-Z0-9_-]+)',  # /file/d/FILE_ID format
+    ]
+
+    for pattern in patterns:
+        match = re.search(pattern, url)
+        if match:
+            return match.group(1)
+
+    return None
+
+def download_image_from_gdrive(gdrive_url: str, local_filename: str) -> bool:
+    """Download an image from Google Drive and save to images/ folder"""
+    # Extract file ID
+    file_id = extract_gdrive_file_id(gdrive_url)
+    if not file_id:
+        print(f"  ⚠️  Could not extract file ID from: {gdrive_url}")
+        return False
+
+    # Create download URL
+    download_url = f"https://drive.google.com/uc?export=download&id={file_id}"
+
+    # Ensure images directory exists
+    os.makedirs('images', exist_ok=True)
+
+    # Full path for the image
+    filepath = os.path.join('images', local_filename)
+
+    try:
+        print(f"  📥 Downloading {local_filename}...")
+        urllib.request.urlretrieve(download_url, filepath)
+        print(f"  ✅ Saved to {filepath}")
+        return True
+    except Exception as e:
+        print(f"  ❌ Error downloading {local_filename}: {e}")
+        return False
+
+def is_gdrive_url(url: str) -> bool:
+    """Check if URL is a Google Drive URL"""
+    if not url or not isinstance(url, str):
+        return False
+    return 'drive.google.com' in url or 'googleusercontent.com' in url
+
+def process_image_url(url: str, default_filename: str) -> str:
+    """
+    Process image URL - download from Google Drive if needed, return local path
+
+    Args:
+        url: The image URL (Google Drive or local path)
+        default_filename: Filename to use if downloading from Google Drive
+
+    Returns:
+        Local path to use in HTML (e.g., 'images/logo.png')
+    """
+    if not url:
+        return ''
+
+    # If it's already a local path, return as-is
+    if url.startswith('images/'):
+        return url
+
+    # If it's a Google Drive URL, download it
+    if is_gdrive_url(url):
+        if download_image_from_gdrive(url, default_filename):
+            return f'images/{default_filename}'
+        else:
+            # Return empty or original URL as fallback
+            return ''
+
+    # Otherwise, assume it's a valid external URL
+    return url
 
 def parse_general_info(data: List[Dict]) -> Dict[str, str]:
     """Parse general site information"""
@@ -478,6 +561,29 @@ def generate_service_detail_section(detail: Dict, index: int) -> str:
 
     return section
 
+def process_all_images(general: Dict, service_details: List) -> None:
+    """
+    Download all Google Drive images to local images/ folder
+
+    Modifies the data structures in-place to use local paths
+    """
+    print("🖼️  Processing images...")
+
+    # Process logo
+    if 'logo_url' in general and is_gdrive_url(general['logo_url']):
+        print("  Processing logo...")
+        general['logo_url'] = process_image_url(general['logo_url'], 'logo.png')
+
+    # Process service detail background images
+    for i, detail in enumerate(service_details):
+        if 'bg_image' in detail and is_gdrive_url(detail['bg_image']):
+            # Create a filename based on service_id
+            filename = f"{detail.get('service_id', f'service-{i}')}-bg.jpg"
+            print(f"  Processing {detail.get('title', 'service')} background...")
+            detail['bg_image'] = process_image_url(detail['bg_image'], filename)
+
+    print("✅ Image processing complete")
+
 def main():
     """Main function to update website from Google Sheets"""
     print("🚀 Starting website update from Google Sheets...")
@@ -513,6 +619,9 @@ def main():
     print(f"  - Services: {len(services)} services")
     print(f"  - Service details: {len(service_details)} detailed pages")
     print(f"  - Contact info: {len(contact)} fields")
+
+    # Process and download images
+    process_all_images(general, service_details)
 
     # Generate HTML
     print("🔨 Generating HTML...")

@@ -45,15 +45,18 @@ jobs:
       - name: Check for changes
         id: check_changes
         run: |
-          git diff --quiet index.html || echo "changes=true" >> $GITHUB_OUTPUT
+          git diff --quiet index.html images/ || echo "changes=true" >> $GITHUB_OUTPUT
 
       - name: Commit and push changes
         if: steps.check_changes.outputs.changes == 'true'
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add index.html
-          git commit -m "🤖 Auto-update website from Google Sheets"
+          git add index.html images/
+          git commit -m "🤖 Auto-update website from Google Sheets
+
+          - Updated website content
+          - Downloaded images from Google Drive"
           git push
 
       - name: No changes detected
