@@ -506,6 +506,40 @@ def generate_html(general: Dict, hero: Dict, about: Dict, values: List,
 '''
     return html
 
+def text_to_paragraphs(text: str, css_class: str = "text-lg text-gray-200 mb-6") -> str:
+    """
+    Convert text with line breaks or separators into multiple HTML paragraphs
+
+    Supports:
+    - Double pipe separator: ||
+    - Newline characters: \n
+    - Multiple consecutive newlines
+    """
+    if not text:
+        return ''
+
+    # Split by double pipe separator OR by double newlines
+    # First try double pipe
+    if '||' in text:
+        paragraphs = [p.strip() for p in text.split('||') if p.strip()]
+    else:
+        # Split by newlines and group consecutive text
+        paragraphs = [p.strip() for p in text.split('\n\n') if p.strip()]
+        # If no double newlines, try single newlines
+        if len(paragraphs) <= 1:
+            paragraphs = [p.strip() for p in text.split('\n') if p.strip()]
+            # If still just one paragraph, keep it as is
+            if len(paragraphs) <= 1:
+                paragraphs = [text.strip()]
+
+    # Generate HTML for each paragraph
+    paragraphs_html = '\n'.join([
+        f'                    <p class="{css_class}">\n                        {para}\n                    </p>'
+        for para in paragraphs if para
+    ])
+
+    return paragraphs_html
+
 def generate_service_detail_section(detail: Dict, index: int) -> str:
     """Generate HTML for a service detail section"""
 
@@ -525,6 +559,10 @@ def generate_service_detail_section(detail: Dict, index: int) -> str:
         for bullet in detail['bullets']
     ])
 
+    # Convert intro and closing text to paragraphs
+    intro_html = text_to_paragraphs(detail.get('intro', ''))
+    closing_html = text_to_paragraphs(detail.get('closing', ''))
+
     section = f'''
     <!-- {detail['title']} Detail Section -->
     <section id="{detail['service_id']}" class="min-h-screen flex items-center py-20 bg-black relative overflow-hidden">
@@ -536,16 +574,12 @@ def generate_service_detail_section(detail: Dict, index: int) -> str:
 {grid_order}
                 <div class="text-white">
                     <h2 class="text-4xl md:text-5xl font-bold mb-8">{detail['title']}</h2>
-                    <p class="text-lg text-gray-200 mb-6">
-                        {detail['intro']}
-                    </p>
+{intro_html}
                     <h3 class="text-2xl font-bold mb-4">{detail['bullets_title']}</h3>
                     <ul class="list-disc list-inside space-y-2 text-gray-200 mb-6">
 {bullets_html}
                     </ul>
-                    <p class="text-lg text-gray-200">
-                        {detail['closing']}
-                    </p>
+{closing_html}
                 </div>'''
 
     # Add closing div for image position
