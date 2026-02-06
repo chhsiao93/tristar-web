@@ -27,6 +27,10 @@
             animation-delay: 0.4s;
         }
 
+        .animation-delay-600 {
+            animation-delay: 0.6s;
+        }
+
         .animation-delay-2000 {
             animation-delay: 2s;
         }
@@ -54,11 +58,6 @@
         .animate-blob {
             animation: blob 10s ease-in-out infinite;
         }
-
-        /* Make sure blobs are visible for debugging */
-        .blob-test {
-            background-color: rgba(147, 51, 234, 0.3) !important;
-        }
     </style>
 </head>
 <body class="bg-gray-900">
@@ -68,8 +67,8 @@
             <div class="flex justify-between items-center">
                 <!-- Logo with text -->
                 <a href="#home" class="flex items-center">
-                    <img src="images/logo.png" alt="TriStar Logo" class="h-10 w-auto mr-4">
-                    <span class="text-4xl font-bold text-[#D81400]">TRI STAR</span>
+                    <img src="https://drive.google.com/uc?export=view&id=1HMFFgunZin1Es6zeXyhxWSe-nNyRu-8p" alt="TRI STARS Logo" class="h-10 w-auto mr-4">
+                    <span class="text-4xl font-bold text-[#D81400]">TRI STARS</span>
                 </a>
                 <div class="hidden md:flex space-x-8">
                     <a href="#home" class="text-gray-300 hover:text-white transition">Home</a>
@@ -111,10 +110,13 @@
             <h2 class="text-4xl font-bold text-center mb-12 text-white">About Us</h2>
             <div class="max-w-3xl mx-auto">
                 <p class="text-lg text-gray-300 mb-6">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    Tri Star Geotechnical Services, LLC, doing business as Tri Star Drilling & Testing, provides geotechnical drilling, laboratory testing, and construction materials testing services for public and private projects across Texas.
                 </p>
                 <p class="text-lg text-gray-300 mb-6">
-                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    Our work supports projects from subsurface exploration through construction, with services performed in accordance with ASTM and TxDOT standards. We partner closely with engineers, contractors, and owners to deliver reliable data, clear reporting, and responsive field support.
+                </p>
+                <p class="text-lg text-gray-300 mb-6">
+                    At Tri Star Drilling & Testing, we are timely, resourceful, and invested. We take ownership of our work, solve problems in real world conditions, and stay engaged because the details matter and the outcomes matter.
                 </p>
                 <div class="grid md:grid-cols-3 gap-8 mt-12">
                     <div class="text-center">
@@ -153,7 +155,7 @@
                     </p>
                 </div>
                 <!-- Core Value 2 -->
-                <div class="group relative p-8 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden bg-gradient-to-br from-indigo-500 to-blue-500 hover:scale-105 fade-in animation-delay-200">
+                <div class="group relative p-8 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden bg-gradient-to-br from-indigo-500 to-blue-500 hover:scale-105 fade-in animation-delay-400">
                     <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity"></div>
                     <div class="text-white text-5xl mb-4 relative z-10">🤝</div>
                     <h3 class="text-2xl font-bold mb-4 text-white relative z-10">Integrity</h3>
@@ -162,7 +164,7 @@
                     </p>
                 </div>
                 <!-- Core Value 3 -->
-                <div class="group relative p-8 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden bg-gradient-to-br from-amber-500 to-yellow-500 hover:scale-105 fade-in animation-delay-400">
+                <div class="group relative p-8 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden bg-gradient-to-br from-amber-500 to-yellow-500 hover:scale-105 fade-in animation-delay-600">
                     <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity"></div>
                     <div class="text-white text-5xl mb-4 relative z-10">💡</div>
                     <h3 class="text-2xl font-bold mb-4 text-white relative z-10">Innovation</h3>
@@ -196,12 +198,12 @@
                     <h3 class="text-2xl font-bold text-center text-white relative z-10">Geotechnical Drilling</h3>
                 </a>
                 <!-- Service 2 -->
-                <a href="#geotechnical-testing" class="group relative p-8 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer overflow-hidden bg-gradient-to-br from-purple-500 to-pink-500 hover:scale-105 fade-in animation-delay-200">
+                <a href="#geotechnical-testing" class="group relative p-8 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer overflow-hidden bg-gradient-to-br from-purple-500 to-pink-500 hover:scale-105 fade-in animation-delay-400">
                     <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity"></div>
                     <h3 class="text-2xl font-bold text-center text-white relative z-10">Geotechnical Testing</h3>
                 </a>
                 <!-- Service 3 -->
-                <a href="#construction-material-testing" class="group relative p-8 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer overflow-hidden bg-gradient-to-br from-orange-500 to-red-500 hover:scale-105 fade-in animation-delay-400">
+                <a href="#construction-material-testing" class="group relative p-8 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer overflow-hidden bg-gradient-to-br from-orange-500 to-red-500 hover:scale-105 fade-in animation-delay-600">
                     <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity"></div>
                     <h3 class="text-2xl font-bold text-center text-white relative z-10">Construction Material Testing</h3>
                 </a>
@@ -216,10 +218,11 @@
         </div>
     </section>
 
+
     <!-- Geotechnical Drilling Detail Section -->
     <section id="geotechnical-drilling" class="min-h-screen flex items-center py-20 bg-black relative overflow-hidden">
-        <!-- Background image on the right side with gradient fade to black on left -->
-        <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('images/drilling-bg.jpg'); -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 50%, rgba(0,0,0,0) 100%); mask-image: linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 50%, rgba(0,0,0,0) 100%);"></div>
+        <!-- Background image -->
+        <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://drive.google.com/uc?export=view&id=1YMvRKLAZUfiWFRafY1ZbONzkiZM1Ysti'); -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 50%, rgba(0,0,0,0) 100%); mask-image: linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 50%, rgba(0,0,0,0) 100%);"></div>
 
         <div class="container mx-auto px-6 relative z-10">
             <div class="grid md:grid-cols-2 gap-12 items-center">
@@ -227,18 +230,18 @@
                 <div class="text-white">
                     <h2 class="text-4xl md:text-5xl font-bold mb-8">Geotechnical Drilling</h2>
                     <p class="text-lg text-gray-200 mb-6">
-                        Our geotechnical drilling services provide comprehensive subsurface investigation solutions for a wide range of projects. We utilize state-of-the-art drilling equipment and techniques to gather critical soil and rock samples.
+                        Our geotechnical drilling services provide comprehensive subsurface investigation solutions for a wide range of projects.
                     </p>
                     <h3 class="text-2xl font-bold mb-4">Key Services Include:</h3>
                     <ul class="list-disc list-inside space-y-2 text-gray-200 mb-6">
-                        <li>Standard Penetration Testing (SPT)</li>
-                        <li>Cone Penetration Testing (CPT)</li>
-                        <li>Soil and rock core sampling</li>
-                        <li>Monitoring well installation</li>
+                        <li>Standard Penetration Testing (SPT) \</li>
+                        <li>Cone Penetration Testing (CPT) \</li>
+                        <li>Soil and rock core sampling \</li>
+                        <li>Monitoring well installation \</li>
                         <li>Environmental drilling</li>
                     </ul>
                     <p class="text-lg text-gray-200">
-                        Our experienced team ensures accurate data collection and safe drilling practices on every project, from small residential developments to large-scale infrastructure projects.
+                        Our experienced team ensures accurate data collection and safe drilling practices on every project.
                     </p>
                 </div>
                 <!-- Empty space for image on the right -->
@@ -249,8 +252,8 @@
 
     <!-- Geotechnical Testing Detail Section -->
     <section id="geotechnical-testing" class="min-h-screen flex items-center py-20 bg-black relative overflow-hidden">
-        <!-- Background image on the left side with gradient fade to black on right -->
-        <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('images/testing-bg.jpg'); -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 50%, rgba(0,0,0,0) 100%); mask-image: linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 50%, rgba(0,0,0,0) 100%);"></div>
+        <!-- Background image -->
+        <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://drive.google.com/uc?export=view&id=1YpEpuE0375J81Fcuy8b4_Y4cGP8qFmfU'); -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 50%, rgba(0,0,0,0) 100%); mask-image: linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 50%, rgba(0,0,0,0) 100%);"></div>
 
         <div class="container mx-auto px-6 relative z-10">
             <div class="grid md:grid-cols-2 gap-12 items-center">
@@ -260,53 +263,19 @@
                 <div class="text-white">
                     <h2 class="text-4xl md:text-5xl font-bold mb-8">Geotechnical Testing</h2>
                     <p class="text-lg text-gray-200 mb-6">
-                        Our comprehensive geotechnical testing laboratory provides detailed analysis of soil and rock samples to determine their physical and mechanical properties. These tests are essential for proper foundation design and construction planning.
+                        Our comprehensive geotechnical testing laboratory provides detailed analysis of soil and rock samples.
                     </p>
                     <h3 class="text-2xl font-bold mb-4">Testing Capabilities:</h3>
                     <ul class="list-disc list-inside space-y-2 text-gray-200 mb-6">
-                        <li>Soil classification and grain size analysis</li>
-                        <li>Atterberg limits testing</li>
-                        <li>Compaction and moisture content tests</li>
+                        <li>Soil classification and grain size analysis \</li>
+                        <li>Atterberg limits testing \</li>
+                        <li>Compaction and moisture content tests \</li>
                         <li>Consolidation and permeability testing</li>
-                        <li>Triaxial and direct shear strength tests</li>
-                        <li>California Bearing Ratio (CBR) testing</li>
                     </ul>
                     <p class="text-lg text-gray-200">
-                        All testing is performed in accordance with ASTM and AASHTO standards, ensuring reliable and accurate results for engineering analysis and design.
+                        ll testing is performed in accordance with ASTM and AASHTO standards.
                     </p>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Construction Material Testing Detail Section -->
-    <section id="construction-material-testing" class="min-h-screen flex items-center py-20 bg-black relative overflow-hidden">
-        <!-- Background image on the right side with gradient fade to black on left -->
-        <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('images/construction-bg.jpg'); -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 50%, rgba(0,0,0,0) 100%); mask-image: linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 50%, rgba(0,0,0,0) 100%);"></div>
-
-        <div class="container mx-auto px-6 relative z-10">
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <!-- Text content on the left -->
-                <div class="text-white">
-                    <h2 class="text-4xl md:text-5xl font-bold mb-8">Construction Material Testing</h2>
-                    <p class="text-lg text-gray-200 mb-6">
-                        We provide comprehensive construction material testing services to ensure that all materials meet project specifications and regulatory requirements. Our testing helps maintain quality control throughout the construction process.
-                    </p>
-                    <h3 class="text-2xl font-bold mb-4">Materials We Test:</h3>
-                    <ul class="list-disc list-inside space-y-2 text-gray-200 mb-6">
-                        <li>Concrete strength testing (compression, flexural)</li>
-                        <li>Aggregate quality and gradation analysis</li>
-                        <li>Asphalt mix design and quality control</li>
-                        <li>Steel reinforcement testing</li>
-                        <li>Masonry and mortar testing</li>
-                        <li>Field density and compaction verification</li>
-                    </ul>
-                    <p class="text-lg text-gray-200">
-                        Our certified technicians perform both laboratory and field testing, providing real-time quality assurance to keep your project on schedule and within specifications.
-                    </p>
-                </div>
-                <!-- Empty space for image on the right -->
-                <div class="hidden md:block"></div>
             </div>
         </div>
     </section>
@@ -340,7 +309,7 @@
     <!-- Footer -->
     <footer class="bg-black text-gray-400 py-8 border-t border-gray-800">
         <div class="container mx-auto px-6 text-center">
-            <p>&copy; 2025 TriStar. All rights reserved.</p>
+            <p>© 2025 TriStar. All rights reserved.</p>
         </div>
     </footer>
 
