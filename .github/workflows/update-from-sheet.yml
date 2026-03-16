@@ -6,7 +6,7 @@ on:
 
   # Automatic schedule - runs every 6 hours
   schedule:
-    - cron: '0 */6 * * *'  # At minute 0 past every 6th hour
+    - cron: '0 0 * * *'  # once per day
     # Adjust the schedule as needed:
     # '0 * * * *'    = Every hour
     # '0 */2 * * *'  = Every 2 hours
