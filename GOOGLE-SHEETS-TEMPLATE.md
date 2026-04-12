@@ -32,6 +32,13 @@ This tab contains basic site information.
 | company_name_size | 2.25rem |
 | company_name_style | normal |
 | company_name_font | Arial |
+| nav_home | Home |
+| nav_about | About |
+| nav_services | Services |
+| nav_contact | Contact |
+| nav_color | #D1D5DB |
+| nav_size | 1rem |
+| nav_font | Arial |
 | site_title | TriStar - Your Website |
 | logo_url | https://drive.google.com/uc?export=view&id=YOUR_FILE_ID |
 | footer_text | © 2025 TriStar. All rights reserved. |

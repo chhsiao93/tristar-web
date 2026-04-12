@@ -225,6 +225,23 @@ def generate_html(general: Dict, hero: Dict, about: Dict, values: List,
         company_name_style_parts.append(f'font-family: {general["company_name_font"]}')
     company_name_inline_style = '; '.join(company_name_style_parts)
 
+    # Build nav link inline style from General fields
+    nav_style_parts = []
+    if general.get('nav_color'):
+        nav_style_parts.append(f'color: {general["nav_color"]}')
+    if general.get('nav_size'):
+        nav_style_parts.append(f'font-size: {general["nav_size"]}')
+    if general.get('nav_font'):
+        nav_style_parts.append(f'font-family: {general["nav_font"]}')
+    nav_inline_style = '; '.join(nav_style_parts)
+    nav_style_attr = f' style="{nav_inline_style}"' if nav_inline_style else ''
+
+    # Nav link labels
+    nav_home    = general.get('nav_home',    'Home')
+    nav_about   = general.get('nav_about',   'About')
+    nav_services = general.get('nav_services', 'Services')
+    nav_contact = general.get('nav_contact', 'Contact')
+
     # Generate hero background HTML
     hero_bg_image = hero.get('bg_image', '')
     if hero_bg_image:
@@ -369,10 +386,10 @@ def generate_html(general: Dict, hero: Dict, about: Dict, values: List,
                     <span class="text-4xl font-bold text-[#D81400]"{f' style="{company_name_inline_style}"' if company_name_inline_style else ''}>{general.get('company_name', 'TRI STAR')}</span>
                 </a>
                 <div class="hidden md:flex space-x-8">
-                    <a href="#home" class="text-gray-300 hover:text-white transition">Home</a>
-                    <a href="#about" class="text-gray-300 hover:text-white transition">About</a>
-                    <a href="#services" class="text-gray-300 hover:text-white transition">Services</a>
-                    <a href="#contact" class="text-gray-300 hover:text-white transition">Contact</a>
+                    <a href="#home" class="text-gray-300 hover:text-white transition"{nav_style_attr}>{nav_home}</a>
+                    <a href="#about" class="text-gray-300 hover:text-white transition"{nav_style_attr}>{nav_about}</a>
+                    <a href="#services" class="text-gray-300 hover:text-white transition"{nav_style_attr}>{nav_services}</a>
+                    <a href="#contact" class="text-gray-300 hover:text-white transition"{nav_style_attr}>{nav_contact}</a>
                 </div>
                 <!-- Mobile menu button -->
                 <button id="mobile-menu-button" class="md:hidden text-gray-300">
@@ -383,10 +400,10 @@ def generate_html(general: Dict, hero: Dict, about: Dict, values: List,
             </div>
             <!-- Mobile menu -->
             <div id="mobile-menu" class="hidden md:hidden mt-4 space-y-2">
-                <a href="#home" class="block text-gray-300 hover:text-white transition">Home</a>
-                <a href="#about" class="block text-gray-300 hover:text-white transition">About</a>
-                <a href="#services" class="block text-gray-300 hover:text-white transition">Services</a>
-                <a href="#contact" class="block text-gray-300 hover:text-white transition">Contact</a>
+                <a href="#home" class="block text-gray-300 hover:text-white transition"{nav_style_attr}>{nav_home}</a>
+                <a href="#about" class="block text-gray-300 hover:text-white transition"{nav_style_attr}>{nav_about}</a>
+                <a href="#services" class="block text-gray-300 hover:text-white transition"{nav_style_attr}>{nav_services}</a>
+                <a href="#contact" class="block text-gray-300 hover:text-white transition"{nav_style_attr}>{nav_contact}</a>
             </div>
         </div>
     </nav>
@@ -514,7 +531,7 @@ def generate_html(general: Dict, hero: Dict, about: Dict, values: List,
 
             emailjs.send('service_6skrxqk', 'template_mehn5ym', params)
                 .then(function() {{
-                    status.textContent = 'Message sent! We\'ll get back to you within 3 business days.';
+                    status.textContent = "Message sent! We'll get back to you within 3 business days.";
                     status.className = 'text-center text-sm text-green-400';
                     status.classList.remove('hidden');
                     document.getElementById('contact-form').reset();
