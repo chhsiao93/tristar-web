@@ -5,19 +5,20 @@ Reads content from published Google Sheets and regenerates the website HTML
 """
 
 import csv
+import io
 import urllib.request
 import json
 import os
 import re
+import markdown
 from typing import Dict, List, Any
-from urllib.parse import urlparse, parse_qs
 
 def read_csv_from_url(url: str) -> List[Dict[str, str]]:
     """Read CSV data from a URL and return as list of dictionaries"""
     try:
         with urllib.request.urlopen(url) as response:
             content = response.read().decode('utf-8')
-            reader = csv.DictReader(content.splitlines())
+            reader = csv.DictReader(io.StringIO(content))
             return list(reader)
     except Exception as e:
         print(f"Error reading CSV from {url}: {e}")
@@ -170,7 +171,7 @@ def parse_core_values(data: List[Dict]) -> List[Dict[str, str]]:
                 'icon': row.get('icon', '🎯'),
                 'title': row.get('title', ''),
                 'description': row.get('description', ''),
-                'gradient': row.get('gradient', 'from-blue-500 to-cyan-500')
+                'color': row.get('color', '#3B82F6')
             })
     return values
 
@@ -182,7 +183,8 @@ def parse_services(data: List[Dict]) -> List[Dict[str, str]]:
             services.append({
                 'name': row.get('name', ''),
                 'link_id': row.get('link_id', ''),
-                'gradient': row.get('gradient', 'from-blue-500 to-cyan-500')
+                'color': row.get('color', '#3B82F6'),
+                'description': row.get('description', '')
             })
     return services
 
@@ -191,17 +193,9 @@ def parse_service_details(data: List[Dict]) -> List[Dict[str, Any]]:
     details = []
     for row in data:
         if row.get('service_id'):
-            # Parse bullet points (separated by | character)
-            bullets = row.get('key_services', '').split('|') if row.get('key_services') else []
-            bullets = [b.strip() for b in bullets if b.strip()]
-
             details.append({
                 'service_id': row.get('service_id', ''),
-                'title': row.get('title', ''),
-                'intro': row.get('intro', ''),
-                'bullets_title': row.get('bullets_title', 'Key Services Include:'),
-                'bullets': bullets,
-                'closing': row.get('closing', ''),
+                'content': row.get('content', ''),
                 'bg_image': row.get('bg_image', ''),
                 'image_position': row.get('image_position', 'right')  # left or right
             })
@@ -219,6 +213,25 @@ def generate_html(general: Dict, hero: Dict, about: Dict, values: List,
                  services: List, service_details: List, contact: Dict) -> str:
     """Generate complete HTML from data"""
 
+    # Build company name inline style from General fields
+    company_name_style_parts = []
+    if general.get('company_name_color'):
+        company_name_style_parts.append(f'color: {general["company_name_color"]}')
+    if general.get('company_name_size'):
+        company_name_style_parts.append(f'font-size: {general["company_name_size"]}')
+    if general.get('company_name_style'):
+        company_name_style_parts.append(f'font-style: {general["company_name_style"]}')
+    if general.get('company_name_font'):
+        company_name_style_parts.append(f'font-family: {general["company_name_font"]}')
+    company_name_inline_style = '; '.join(company_name_style_parts)
+
+    # Generate hero background HTML
+    hero_bg_image = hero.get('bg_image', '')
+    if hero_bg_image:
+        hero_bg_html = f'<!-- Background image --><div class="absolute inset-0 bg-cover bg-center" style="background-image: url(\'{hero_bg_image}\');"></div><div class="absolute inset-0 bg-black/50"></div>'
+    else:
+        hero_bg_html = '<div class="absolute inset-0 bg-gradient-to-br from-blue-500 to-purple-600"></div>'
+
     # Generate stats HTML
     stats_html = '\n'.join([
         f'''                    <div class="text-center">
@@ -231,7 +244,7 @@ def generate_html(general: Dict, hero: Dict, about: Dict, values: List,
     # Generate core values HTML
     values_html = '\n'.join([
         f'''                <!-- Core Value {i+1} -->
-                <div class="group relative p-8 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden bg-gradient-to-br {value['gradient']} hover:scale-105 fade-in{' animation-delay-' + str((i+1)*200) if i > 0 else ''}">
+                <div class="group relative p-8 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden hover:scale-105 fade-in{' animation-delay-' + str((i+1)*200) if i > 0 else ''}" style="background-color: {value['color']}">
                     <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity"></div>
                     <div class="text-white text-5xl mb-4 relative z-10">{value['icon']}</div>
                     <h3 class="text-2xl font-bold mb-4 text-white relative z-10">{value['title']}</h3>
@@ -245,17 +258,18 @@ def generate_html(general: Dict, hero: Dict, about: Dict, values: List,
     # Generate services overview HTML
     services_html = '\n'.join([
         f'''                <!-- Service {i+1} -->
-                <a href="#{service['link_id']}" class="group relative p-8 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer overflow-hidden bg-gradient-to-br {service['gradient']} hover:scale-105 fade-in{' animation-delay-' + str((i+1)*200) if i > 0 else ''}">
+                <a href="#{service['link_id']}" class="group relative p-8 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer overflow-hidden hover:scale-105 fade-in{' animation-delay-' + str((i+1)*200) if i > 0 else ''}" style="background-color: {service['color']}">
                     <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity"></div>
-                    <h3 class="text-2xl font-bold text-center text-white relative z-10">{service['name']}</h3>
+                    <h3 class="text-2xl font-bold text-center text-white relative z-10 mb-3">{service['name']}</h3>
+                    {f'<p class="text-white/80 text-center relative z-10 text-sm">{service["description"]}</p>' if service.get('description') else ''}
                 </a>'''
         for i, service in enumerate(services)
     ])
 
     # Generate service detail sections HTML
     service_details_html = '\n'.join([
-        generate_service_detail_section(detail, i)
-        for i, detail in enumerate(service_details)
+        generate_service_detail_section(detail)
+        for detail in service_details
     ])
 
     # Generate about paragraphs
@@ -326,6 +340,20 @@ def generate_html(general: Dict, hero: Dict, about: Dict, values: List,
         .animate-blob {{
             animation: blob 10s ease-in-out infinite;
         }}
+
+        /* Markdown content styling */
+        .markdown-content h1 {{ font-size: 2rem; font-weight: 700; margin-bottom: 1rem; color: #fff; }}
+        .markdown-content h2 {{ font-size: 1.5rem; font-weight: 700; margin-top: 1.5rem; margin-bottom: 0.75rem; color: #fff; }}
+        .markdown-content h3 {{ font-size: 1.25rem; font-weight: 600; margin-top: 1.25rem; margin-bottom: 0.5rem; color: #fff; }}
+        .markdown-content h4 {{ font-size: 1.1rem; font-weight: 600; margin-top: 1rem; margin-bottom: 0.5rem; color: #fff; }}
+        .markdown-content p {{ margin-bottom: 0.75rem; color: #D1D5DB; line-height: 1.7; }}
+        .markdown-content ul {{ list-style-type: disc; padding-left: 1.5rem; margin-bottom: 0.75rem; }}
+        .markdown-content ol {{ list-style-type: decimal; padding-left: 1.5rem; margin-bottom: 0.75rem; }}
+        .markdown-content li {{ color: #D1D5DB; margin-bottom: 0.25rem; line-height: 1.6; }}
+        .markdown-content ul ul {{ list-style-type: circle; margin-top: 0.25rem; margin-bottom: 0; }}
+        .markdown-content ol ol {{ list-style-type: lower-alpha; margin-top: 0.25rem; margin-bottom: 0; }}
+        .markdown-content strong {{ font-weight: 700; color: #fff; }}
+        .markdown-content em {{ font-style: italic; }}
     </style>
 </head>
 <body class="bg-gray-900">
@@ -336,7 +364,7 @@ def generate_html(general: Dict, hero: Dict, about: Dict, values: List,
                 <!-- Logo with text -->
                 <a href="#home" class="flex items-center">
                     <img src="{general.get('logo_url', 'images/logo.png')}" alt="{general.get('company_name', 'TriStar')} Logo" class="h-10 w-auto mr-4">
-                    <span class="text-4xl font-bold text-[#D81400]">{general.get('company_name', 'TRI STAR')}</span>
+                    <span class="text-4xl font-bold text-[#D81400]"{f' style="{company_name_inline_style}"' if company_name_inline_style else ''}>{general.get('company_name', 'TRI STAR')}</span>
                 </a>
                 <div class="hidden md:flex space-x-8">
                     <a href="#home" class="text-gray-300 hover:text-white transition">Home</a>
@@ -362,8 +390,9 @@ def generate_html(general: Dict, hero: Dict, about: Dict, values: List,
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-500 to-purple-600 text-white pt-20">
-        <div class="container mx-auto px-6 text-center">
+    <section id="home" class="min-h-screen flex items-center justify-center text-white pt-20 relative overflow-hidden bg-gray-900">
+        {hero_bg_html}
+        <div class="container mx-auto px-6 text-center relative z-10">
             <h1 class="text-5xl md:text-6xl font-bold mb-6">{hero.get('title', 'Welcome to TriStar')}</h1>
             <p class="text-xl md:text-2xl mb-8 text-blue-100">{hero.get('subtitle', 'Building foundations for success')}</p>
             <a href="#about" class="inline-block bg-white text-blue-600 px-8 py-3 rounded-full font-semibold hover:bg-blue-50 transition">
@@ -540,7 +569,7 @@ def text_to_paragraphs(text: str, css_class: str = "text-lg text-gray-200 mb-6")
 
     return paragraphs_html
 
-def generate_service_detail_section(detail: Dict, index: int) -> str:
+def generate_service_detail_section(detail: Dict) -> str:
     """Generate HTML for a service detail section"""
 
     # Determine image position and gradient direction
@@ -553,18 +582,11 @@ def generate_service_detail_section(detail: Dict, index: int) -> str:
         mask_gradient = "linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 50%, rgba(0,0,0,0) 100%)"
         grid_order = '''                <!-- Text content on the left -->'''
 
-    # Generate bullet points
-    bullets_html = '\n'.join([
-        f'                        <li>{bullet}</li>'
-        for bullet in detail['bullets']
-    ])
-
-    # Convert intro and closing text to paragraphs
-    intro_html = text_to_paragraphs(detail.get('intro', ''))
-    closing_html = text_to_paragraphs(detail.get('closing', ''))
+    # Convert markdown content to HTML
+    content_html = markdown.markdown(detail.get('content', ''), extensions=['extra'])
 
     section = f'''
-    <!-- {detail['title']} Detail Section -->
+    <!-- {detail['service_id']} Detail Section -->
     <section id="{detail['service_id']}" class="min-h-screen flex items-center py-20 bg-black relative overflow-hidden">
         <!-- Background image -->
         <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('{detail['bg_image']}'); -webkit-mask-image: {mask_gradient}; mask-image: {mask_gradient};"></div>
@@ -572,14 +594,8 @@ def generate_service_detail_section(detail: Dict, index: int) -> str:
         <div class="container mx-auto px-6 relative z-10">
             <div class="grid md:grid-cols-2 gap-12 items-center">
 {grid_order}
-                <div class="text-white">
-                    <h2 class="text-4xl md:text-5xl font-bold mb-8">{detail['title']}</h2>
-{intro_html}
-                    <h3 class="text-2xl font-bold mb-4">{detail['bullets_title']}</h3>
-                    <ul class="list-disc list-inside space-y-2 text-gray-200 mb-6">
-{bullets_html}
-                    </ul>
-{closing_html}
+                <div class="markdown-content">
+                    {content_html}
                 </div>'''
 
     # Add closing div for image position
@@ -595,7 +611,7 @@ def generate_service_detail_section(detail: Dict, index: int) -> str:
 
     return section
 
-def process_all_images(general: Dict, service_details: List) -> None:
+def process_all_images(general: Dict, hero: Dict, service_details: List) -> None:
     """
     Download all Google Drive images to local images/ folder
 
@@ -607,6 +623,11 @@ def process_all_images(general: Dict, service_details: List) -> None:
     if 'logo_url' in general and is_gdrive_url(general['logo_url']):
         print("  Processing logo...")
         general['logo_url'] = process_image_url(general['logo_url'], 'logo.png')
+
+    # Process hero background image
+    if 'bg_image' in hero and is_gdrive_url(hero['bg_image']):
+        print("  Processing hero background...")
+        hero['bg_image'] = process_image_url(hero['bg_image'], 'hero-bg.jpg')
 
     # Process service detail background images
     for i, detail in enumerate(service_details):
@@ -655,7 +676,7 @@ def main():
     print(f"  - Contact info: {len(contact)} fields")
 
     # Process and download images
-    process_all_images(general, service_details)
+    process_all_images(general, hero, service_details)
 
     # Generate HTML
     print("🔨 Generating HTML...")

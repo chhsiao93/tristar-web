@@ -6,7 +6,7 @@ on:
 
   # Automatic schedule - runs every 6 hours
   schedule:
-    - cron: '0 0 * * *'  # once per day
+    - cron: '0 0 */3 * *'  # once every 3 days
     # Adjust the schedule as needed:
     # '0 * * * *'    = Every hour
     # '0 */2 * * *'  = Every 2 hours
@@ -36,6 +36,9 @@ jobs:
           else
             echo "config_exists=false" >> $GITHUB_OUTPUT
           fi
+
+      - name: Install dependencies
+        run: pip install markdown
 
       - name: Update website from Google Sheets
         if: steps.check_config.outputs.config_exists == 'true'

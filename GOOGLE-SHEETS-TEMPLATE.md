@@ -28,6 +28,10 @@ This tab contains basic site information.
 | field | value |
 |-------|-------|
 | company_name | TRI STAR |
+| company_name_color | #D81400 |
+| company_name_size | 2.25rem |
+| company_name_style | normal |
+| company_name_font | Arial |
 | site_title | TriStar - Your Website |
 | logo_url | https://drive.google.com/uc?export=view&id=YOUR_FILE_ID |
 | footer_text | © 2025 TriStar. All rights reserved. |
@@ -97,25 +101,17 @@ This tab contains your company's core values.
 
 ### Structure:
 
-| icon | title | description | gradient |
-|------|-------|-------------|----------|
-| 🎯 | Excellence | We strive for excellence in everything we do, delivering quality that exceeds expectations. | from-emerald-500 to-teal-500 |
-| 🤝 | Integrity | We operate with honesty and transparency, building trust with every interaction. | from-indigo-500 to-blue-500 |
-| 💡 | Innovation | We embrace creativity and forward-thinking solutions to solve complex challenges. | from-amber-500 to-yellow-500 |
+| icon | title | description | color |
+|------|-------|-------------|-------|
+| 🎯 | Excellence | We strive for excellence in everything we do, delivering quality that exceeds expectations. | #10B981 |
+| 🤝 | Integrity | We operate with honesty and transparency, building trust with every interaction. | #6366F1 |
+| 💡 | Innovation | We embrace creativity and forward-thinking solutions to solve complex challenges. | #F59E0B |
 
 ### Instructions:
 1. Column A: `icon` (emoji - use Windows key + . or Cmd + Ctrl + Space on Mac)
 2. Column B: `title`
 3. Column C: `description`
-4. Column D: `gradient` (Tailwind gradient classes)
-
-### Common Gradient Options:
-- `from-blue-500 to-cyan-500` (Blue)
-- `from-purple-500 to-pink-500` (Purple)
-- `from-orange-500 to-red-500` (Orange)
-- `from-emerald-500 to-teal-500` (Green)
-- `from-indigo-500 to-blue-500` (Indigo)
-- `from-amber-500 to-yellow-500` (Yellow)
+4. Column D: `color` (hex color code, e.g. `#3B82F6`)
 
 ### To add more values:
 Just add more rows! The website will automatically display all values.
@@ -130,16 +126,17 @@ This tab contains the services overview cards.
 
 ### Structure:
 
-| name | link_id | gradient |
-|------|---------|----------|
-| Geotechnical Drilling | geotechnical-drilling | from-blue-500 to-cyan-500 |
-| Geotechnical Testing | geotechnical-testing | from-purple-500 to-pink-500 |
-| Construction Material Testing | construction-material-testing | from-orange-500 to-red-500 |
+| name | link_id | color | description |
+|------|---------|-------|-------------|
+| Geotechnical Drilling | geotechnical-drilling | #3B82F6 | Expert drilling services for site investigation and subsurface exploration. |
+| Geotechnical Testing | geotechnical-testing | #A855F7 | Comprehensive laboratory and field testing of soil and rock samples. |
+| Construction Material Testing | construction-material-testing | #F97316 | Quality assurance testing for concrete, asphalt, and other construction materials. |
 
 ### Instructions:
 1. Column A: `name` (Service display name)
 2. Column B: `link_id` (URL-friendly ID, lowercase, use hyphens)
 3. Column C: `gradient` (Color gradient)
+4. Column D: `description` (Short description shown on the service card — optional)
 
 ### To add more services:
 Just add more rows! The website will automatically create new service cards.
@@ -156,20 +153,43 @@ This tab contains detailed service pages.
 
 ### Structure:
 
-| service_id | title | intro | bullets_title | key_services | closing | bg_image | image_position |
-|------------|-------|-------|---------------|--------------|---------|----------|----------------|
-| geotechnical-drilling | Geotechnical Drilling | Our geotechnical drilling services provide comprehensive subsurface investigation solutions for a wide range of projects. | Key Services Include: | Standard Penetration Testing (SPT) \| Cone Penetration Testing (CPT) \| Soil and rock core sampling \| Monitoring well installation \| Environmental drilling | Our experienced team ensures accurate data collection and safe drilling practices on every project. | https://drive.google.com/uc?export=view&id=YOUR_FILE_ID | right |
-| geotechnical-testing | Geotechnical Testing | Our comprehensive geotechnical testing laboratory provides detailed analysis of soil and rock samples. | Testing Capabilities: | Soil classification and grain size analysis \| Atterberg limits testing \| Compaction and moisture content tests \| Consolidation and permeability testing | All testing is performed in accordance with ASTM and AASHTO standards. | https://drive.google.com/uc?export=view&id=YOUR_FILE_ID | left |
+| service_id | content | bg_image | image_position |
+|------------|---------|----------|----------------|
+| geotechnical-drilling | (markdown content — see below) | https://drive.google.com/uc?export=view&id=YOUR_FILE_ID | right |
 
 ### Instructions:
 1. `service_id` - Must match the `link_id` from Services tab
-2. `title` - Service page title
-3. `intro` - Opening paragraph
-4. `bullets_title` - Heading for bullet list (e.g., "Key Services Include:")
-5. `key_services` - Bullet points separated by `|` character
-6. `closing` - Closing paragraph
-7. `bg_image` - Google Drive image URL for background
-8. `image_position` - Either `left` or `right` (which side the image appears)
+2. `content` - Free-form markdown text (use Alt+Enter for new lines in the cell). Use `#` or `##` at the top for the section title.
+4. `bg_image` - Google Drive image URL for background
+5. `image_position` - Either `left` or `right` (which side the image appears)
+
+### Writing content with Markdown:
+
+Use **Alt+Enter** (Windows) or **Ctrl+Enter** (Mac) to add new lines inside a Google Sheets cell.
+
+```
+## Key Services Include
+
+Our drilling services cover a wide range of project types.
+
+- Standard Penetration Testing (SPT)
+- Cone Penetration Testing (CPT)
+- Soil and rock core sampling
+    - Shallow cores
+    - Deep rock coring
+- Monitoring well installation
+
+Our experienced team ensures accurate data collection on every project.
+```
+
+**Supported syntax:**
+- `## Heading` — section heading
+- `### Sub-heading` — smaller heading
+- `- item` — bullet point
+- `    - item` — nested bullet (4 spaces indent)
+- `**bold**` — bold text
+- `*italic*` — italic text
+- Blank line — paragraph break
 
 ### To add more services:
 Add a new row with a new `service_id`. Make sure to also add it to the Services tab!
