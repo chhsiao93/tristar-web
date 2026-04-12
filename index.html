@@ -87,10 +87,10 @@
                     <span class="text-4xl font-bold text-[#D81400]" style="color: #FFFFFF; font-size: 36px; font-style: italic; font-family: Times New Roman">TRI STAR drilling & testing</span>
                 </a>
                 <div class="hidden md:flex space-x-8">
-                    <a href="#home" class="text-gray-300 hover:text-white transition">Home</a>
-                    <a href="#about" class="text-gray-300 hover:text-white transition">About</a>
-                    <a href="#services" class="text-gray-300 hover:text-white transition">Services</a>
-                    <a href="#contact" class="text-gray-300 hover:text-white transition">Contact</a>
+                    <a href="#home" class="text-gray-300 hover:text-white transition" style="color: #FFFFFF; font-size: 28px; font-family: Times New Roman">Home</a>
+                    <a href="#about" class="text-gray-300 hover:text-white transition" style="color: #FFFFFF; font-size: 28px; font-family: Times New Roman">About</a>
+                    <a href="#services" class="text-gray-300 hover:text-white transition" style="color: #FFFFFF; font-size: 28px; font-family: Times New Roman">Services</a>
+                    <a href="#contact" class="text-gray-300 hover:text-white transition" style="color: #FFFFFF; font-size: 28px; font-family: Times New Roman">Contact</a>
                 </div>
                 <!-- Mobile menu button -->
                 <button id="mobile-menu-button" class="md:hidden text-gray-300">
@@ -101,10 +101,10 @@
             </div>
             <!-- Mobile menu -->
             <div id="mobile-menu" class="hidden md:hidden mt-4 space-y-2">
-                <a href="#home" class="block text-gray-300 hover:text-white transition">Home</a>
-                <a href="#about" class="block text-gray-300 hover:text-white transition">About</a>
-                <a href="#services" class="block text-gray-300 hover:text-white transition">Services</a>
-                <a href="#contact" class="block text-gray-300 hover:text-white transition">Contact</a>
+                <a href="#home" class="block text-gray-300 hover:text-white transition" style="color: #FFFFFF; font-size: 28px; font-family: Times New Roman">Home</a>
+                <a href="#about" class="block text-gray-300 hover:text-white transition" style="color: #FFFFFF; font-size: 28px; font-family: Times New Roman">About</a>
+                <a href="#services" class="block text-gray-300 hover:text-white transition" style="color: #FFFFFF; font-size: 28px; font-family: Times New Roman">Services</a>
+                <a href="#contact" class="block text-gray-300 hover:text-white transition" style="color: #FFFFFF; font-size: 28px; font-family: Times New Roman">Contact</a>
             </div>
         </div>
     </nav>
@@ -388,7 +388,7 @@ Our laboratory testing focuses on index properties, material characterization, a
 
             emailjs.send('service_6skrxqk', 'template_mehn5ym', params)
                 .then(function() {
-                    status.textContent = 'Message sent! We'll get back to you within 3 business days.';
+                    status.textContent = "Message sent! We'll get back to you within 3 business days.";
                     status.className = 'text-center text-sm text-green-400';
                     status.classList.remove('hidden');
                     document.getElementById('contact-form').reset();
