@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TriStar drilling & testing</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script>emailjs.init("oRnmBJkQ_J53w0jQ4");</script>
     <style>
         /* Fade-in animation */
         .fade-in {
@@ -58,6 +60,20 @@
         .animate-blob {
             animation: blob 10s ease-in-out infinite;
         }
+
+        /* Markdown content styling */
+        .markdown-content h1 { font-size: 2rem; font-weight: 700; margin-bottom: 1rem; color: #fff; }
+        .markdown-content h2 { font-size: 1.5rem; font-weight: 700; margin-top: 1.5rem; margin-bottom: 0.75rem; color: #fff; }
+        .markdown-content h3 { font-size: 1.25rem; font-weight: 600; margin-top: 1.25rem; margin-bottom: 0.5rem; color: #fff; }
+        .markdown-content h4 { font-size: 1.1rem; font-weight: 600; margin-top: 1rem; margin-bottom: 0.5rem; color: #fff; }
+        .markdown-content p { margin-bottom: 0.75rem; color: #D1D5DB; line-height: 1.7; }
+        .markdown-content ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 0.75rem; }
+        .markdown-content ol { list-style-type: decimal; padding-left: 1.5rem; margin-bottom: 0.75rem; }
+        .markdown-content li { color: #D1D5DB; margin-bottom: 0.25rem; line-height: 1.6; }
+        .markdown-content ul ul { list-style-type: circle; margin-top: 0.25rem; margin-bottom: 0; }
+        .markdown-content ol ol { list-style-type: lower-alpha; margin-top: 0.25rem; margin-bottom: 0; }
+        .markdown-content strong { font-weight: 700; color: #fff; }
+        .markdown-content em { font-style: italic; }
     </style>
 </head>
 <body class="bg-gray-900">
@@ -68,7 +84,7 @@
                 <!-- Logo with text -->
                 <a href="#home" class="flex items-center">
                     <img src="images/logo.png" alt="TRI STAR drilling & testing Logo" class="h-10 w-auto mr-4">
-                    <span class="text-4xl font-bold text-[#D81400]">TRI STAR drilling & testing</span>
+                    <span class="text-4xl font-bold text-[#D81400]" style="color: #FFFFFF; font-size: 36px; font-style: italic; font-family: Times New Roman">TRI STAR drilling & testing</span>
                 </a>
                 <div class="hidden md:flex space-x-8">
                     <a href="#home" class="text-gray-300 hover:text-white transition">Home</a>
@@ -94,8 +110,9 @@
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-500 to-purple-600 text-white pt-20">
-        <div class="container mx-auto px-6 text-center">
+    <section id="home" class="min-h-screen flex items-center justify-center text-white pt-20 relative overflow-hidden bg-gray-900">
+        <!-- Background image --><div class="absolute inset-0 bg-cover bg-center" style="background-image: url('images/hero-bg.jpg');"></div><div class="absolute inset-0 bg-black/50"></div>
+        <div class="container mx-auto px-6 text-center relative z-10">
             <h1 class="text-5xl md:text-6xl font-bold mb-6">Welcome to TriStar</h1>
             <p class="text-xl md:text-2xl mb-8 text-blue-100">Building foundations for success through expert geotechnical solutions</p>
             <a href="#about" class="inline-block bg-white text-blue-600 px-8 py-3 rounded-full font-semibold hover:bg-blue-50 transition">
@@ -146,7 +163,7 @@
             <h2 class="text-4xl font-bold text-center mb-12 text-white fade-in">Our Core Values</h2>
             <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
                 <!-- Core Value 1 -->
-                <div class="group relative p-8 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden bg-gradient-to-br from-emerald-500 to-teal-500 hover:scale-105 fade-in">
+                <div class="group relative p-8 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden hover:scale-105 fade-in" style="background-color: #F97316">
                     <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity"></div>
                     <div class="text-white text-5xl mb-4 relative z-10">⏱️</div>
                     <h3 class="text-2xl font-bold mb-4 text-white relative z-10">Timely</h3>
@@ -155,7 +172,7 @@
                     </p>
                 </div>
                 <!-- Core Value 2 -->
-                <div class="group relative p-8 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden bg-gradient-to-br from-indigo-500 to-blue-500 hover:scale-105 fade-in animation-delay-400">
+                <div class="group relative p-8 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden hover:scale-105 fade-in animation-delay-400" style="background-color: #F97316">
                     <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity"></div>
                     <div class="text-white text-5xl mb-4 relative z-10">🤝</div>
                     <h3 class="text-2xl font-bold mb-4 text-white relative z-10">Resourceful</h3>
@@ -164,7 +181,7 @@
                     </p>
                 </div>
                 <!-- Core Value 3 -->
-                <div class="group relative p-8 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden bg-gradient-to-br from-amber-500 to-yellow-500 hover:scale-105 fade-in animation-delay-600">
+                <div class="group relative p-8 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden hover:scale-105 fade-in animation-delay-600" style="background-color: #F97316">
                     <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity"></div>
                     <div class="text-white text-5xl mb-4 relative z-10">💡</div>
                     <h3 class="text-2xl font-bold mb-4 text-white relative z-10">Invested</h3>
@@ -193,19 +210,22 @@
             <h2 class="text-4xl font-bold text-center mb-12 text-white fade-in">Our Services</h2>
             <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
                 <!-- Service 1 -->
-                <a href="#geotechnical-drilling" class="group relative p-8 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer overflow-hidden bg-gradient-to-br from-blue-500 to-cyan-500 hover:scale-105 fade-in">
+                <a href="#geotechnical-drilling" class="group relative p-8 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer overflow-hidden hover:scale-105 fade-in" style="background-color: #3B82F6">
                     <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity"></div>
-                    <h3 class="text-2xl font-bold text-center text-white relative z-10">Geotechnical Drilling</h3>
+                    <h3 class="text-2xl font-bold text-center text-white relative z-10 mb-3">Geotechnical Drilling</h3>
+                    <p class="text-white/80 text-center relative z-10 text-sm">Subsurface exploration and sampling services.</p>
                 </a>
                 <!-- Service 2 -->
-                <a href="#laboratory-testing" class="group relative p-8 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer overflow-hidden bg-gradient-to-br from-purple-500 to-pink-500 hover:scale-105 fade-in animation-delay-400">
+                <a href="#laboratory-testing" class="group relative p-8 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer overflow-hidden hover:scale-105 fade-in animation-delay-400" style="background-color: #A855F7">
                     <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity"></div>
-                    <h3 class="text-2xl font-bold text-center text-white relative z-10">Laboratory Testing</h3>
+                    <h3 class="text-2xl font-bold text-center text-white relative z-10 mb-3">Laboratory Testing</h3>
+                    <p class="text-white/80 text-center relative z-10 text-sm">Geotechnical and construction materials testing in accordance with ASTM and TxDOT standards.</p>
                 </a>
                 <!-- Service 3 -->
-                <a href="#construction-material-testing" class="group relative p-8 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer overflow-hidden bg-gradient-to-br from-orange-500 to-red-500 hover:scale-105 fade-in animation-delay-600">
+                <a href="#construction-material-testing" class="group relative p-8 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer overflow-hidden hover:scale-105 fade-in animation-delay-600" style="background-color: #10B981">
                     <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity"></div>
-                    <h3 class="text-2xl font-bold text-center text-white relative z-10">Construction Material Testing</h3>
+                    <h3 class="text-2xl font-bold text-center text-white relative z-10 mb-3">Construction Material Testing</h3>
+                    <p class="text-white/80 text-center relative z-10 text-sm">Field testing and observations during construction.</p>
                 </a>
             </div>
         </div>
@@ -219,7 +239,7 @@
     </section>
 
 
-    <!-- Geotechnical Drilling Detail Section -->
+    <!-- geotechnical-drilling Detail Section -->
     <section id="geotechnical-drilling" class="min-h-screen flex items-center py-20 bg-black relative overflow-hidden">
         <!-- Background image -->
         <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('images/geotechnical-drilling-bg.jpg'); -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 50%, rgba(0,0,0,0) 100%); mask-image: linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 50%, rgba(0,0,0,0) 100%);"></div>
@@ -227,27 +247,24 @@
         <div class="container mx-auto px-6 relative z-10">
             <div class="grid md:grid-cols-2 gap-12 items-center">
                 <!-- Text content on the left -->
-                <div class="text-white">
-                    <h2 class="text-4xl md:text-5xl font-bold mb-8">Geotechnical Drilling</h2>
-                    <p class="text-lg text-gray-200 mb-6">
-                        Tri Star Drilling & Testing provides geotechnical drilling and sampling services to support subsurface exploration and geotechnical design. Our drilling operations focus on obtaining representative soil and rock samples for laboratory testing and engineering evaluation.
-                    </p>
-                    <p class="text-lg text-gray-200 mb-6">
-                        Our crews work closely with geotechnical engineers and project teams to ensure borings are completed efficiently, logged accurately, and performed in accordance with project requirements and applicable standards.
-                    </p>
-                    <h3 class="text-2xl font-bold mb-4">Typical Drilling Services Include:</h3>
-                    <ul class="list-disc list-inside space-y-2 text-gray-200 mb-6">
-                        <li>Soil borings with standard penetration testing</li>
-                        <li>Shelby tube sampling</li>
-                        <li>Auger and rotary drilling methods</li>
-                        <li>Manual drilling techniques for confined or limited access areas</li>
-                        <li>Non-destructive dynamic cone penetrometer readings</li>
-                        <li>Coring capabilities through asphalt and concrete pavements</li>
-                        <li>Coordination with geotechnical engineers during field operations</li>
-                    </ul>
-                    <p class="text-lg text-gray-200 mb-6">
-                        Our experienced team focuses on accurate data collection and safe drilling practices on projects ranging from small residential developments to large scale infrastructure work.
-                    </p>
+                <div class="markdown-content">
+                    <h1>Geotechnical Drilling</h1>
+<p>Tri Star Drilling &amp; Testing provides geotechnical drilling and sampling services to support subsurface exploration and geotechnical design. 
+Our drilling operations focus on obtaining representative soil and rock samples for laboratory testing and engineering evaluation.</p>
+<p>Our crews work closely with geotechnical engineers and project teams to ensure borings are completed efficiently, logged accurately, 
+and performed in accordance with project requirements and applicable standards.</p>
+<h2>Typical Drilling Services Include:</h2>
+<ul>
+<li>Soil borings with standard penetration testing</li>
+<li>Shelby tube sampling</li>
+<li>Auger and rotary drilling methods</li>
+<li>Manual drilling techniques for confined or limited access areas</li>
+<li>Non-destructive dynamic cone penetrometer readings</li>
+<li>Coring capabilities through asphalt and concrete pavements</li>
+<li>Coordination with geotechnical engineers during field operations</li>
+</ul>
+<p>Our experienced team focuses on accurate data collection and safe drilling practices on projects 
+ranging from small residential developments to large scale infrastructure work.</p>
                 </div>
                 <!-- Empty space for image on the right -->
                 <div class="hidden md:block"></div>
@@ -255,7 +272,7 @@
         </div>
     </section>
 
-    <!-- Geotechnical and Materials Laboratory Testing Detail Section -->
+    <!-- laboratory-testing Detail Section -->
     <section id="laboratory-testing" class="min-h-screen flex items-center py-20 bg-black relative overflow-hidden">
         <!-- Background image -->
         <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('images/laboratory-testing-bg.jpg'); -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 50%, rgba(0,0,0,0) 100%); mask-image: linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 50%, rgba(0,0,0,0) 100%);"></div>
@@ -265,30 +282,32 @@
                 <!-- Empty space for image on the left -->
                 <div class="hidden md:block"></div>
                 <!-- Text content on the right -->
-                <div class="text-white">
-                    <h2 class="text-4xl md:text-5xl font-bold mb-8">Geotechnical and Materials Laboratory Testing</h2>
-                    <p class="text-lg text-gray-200 mb-6">
-                        Tri Star Drilling & Testing provides laboratory testing services that support soil classification, material evaluation, and construction quality assurance/control for geotechnical and construction projects. Our laboratory testing focuses on index properties, material characterization, and verification testing used during design support and construction.
-                    </p>
-                    <p class="text-lg text-gray-200 mb-6">
-                        Testing is performed in accordance with applicable ASTM and TxDOT standards, with an emphasis on clear reporting and practical use of results.
-                    </p>
-                    <h3 class="text-2xl font-bold mb-4">Laboratory Testing Services Include:</h3>
-                    <ul class="list-disc list-inside space-y-2 text-gray-200 mb-6">
-                        <li>Soil classification and grain size analysis</li>
-                        <li>Atterberg limits testing</li>
-                        <li>Compaction and moisture content tests</li>
-                        <li>Consolidation and permeability testing</li>
-                    </ul>
-                    <p class="text-lg text-gray-200 mb-6">
-                        Specialty testing beyond these services, including advanced strength or consolidation testing, may be coordinated through qualified specialty laboratories as needed.
-                    </p>
+                <div class="markdown-content">
+                    <h1>Geotechnical and Materials Laboratory Testing</h1>
+<p>Tri Star Drilling &amp; Testing provides laboratory testing services that support soil classification, material evaluation, and construction quality assurance/control for geotechnical and construction projects. 
+Our laboratory testing focuses on index properties, material characterization, and verification testing used during design support and construction.</p>
+<p>Testing is performed in accordance with applicable ASTM and TxDOT standards, with an emphasis on clear reporting and practical use of results. </p>
+<h2>Laboratory Testing Services Include:</h2>
+<ul>
+<li>Soil Classification and Index Properties<ol>
+<li>Moisture content testing</li>
+<li>Atterberg limits testing</li>
+<li>Particle size analysis and gradation</li>
+<li>Soil classification for geotechnical evaluation</li>
+</ol>
+</li>
+<li>Soil classification and grain size analysis</li>
+<li>Atterberg limits testing</li>
+<li>Compaction and moisture content tests</li>
+<li>Consolidation and permeability testing</li>
+</ul>
+<p>Specialty testing beyond these services, including advanced strength or consolidation testing, may be coordinated through qualified specialty laboratories as needed. </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Construction Materials Testing Detail Section -->
+    <!-- construction-materials-testing Detail Section -->
     <section id="construction-materials-testing" class="min-h-screen flex items-center py-20 bg-black relative overflow-hidden">
         <!-- Background image -->
         <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('images/construction-materials-testing-bg.jpg'); -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 50%, rgba(0,0,0,0) 100%); mask-image: linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 50%, rgba(0,0,0,0) 100%);"></div>
@@ -296,24 +315,18 @@
         <div class="container mx-auto px-6 relative z-10">
             <div class="grid md:grid-cols-2 gap-12 items-center">
                 <!-- Text content on the left -->
-                <div class="text-white">
-                    <h2 class="text-4xl md:text-5xl font-bold mb-8">Construction Materials Testing</h2>
-                    <p class="text-lg text-gray-200 mb-6">
-                        Tri Star provides construction materials testing and observation services to support quality control and quality assurance during construction. Our services focus on verifying that materials and workmanship comply with project specifications, approved mix designs, and applicable ASTM and TxDOT requirements.
-                    </p>
-                    <p class="text-lg text-gray-200 mb-6">
-                        We work directly with contractors, engineers, and owners to provide timely field support, clear documentation, and reliable test results that keep projects moving and minimize delays.
-                    </p>
-                    <h3 class="text-2xl font-bold mb-4">Construction Materials Testing Services Include:</h3>
-                    <ul class="list-disc list-inside space-y-2 text-gray-200 mb-6">
-                        <li>Earthwork and Subgrade</li>
-                        <li>Concrete</li>
-                        <li>Hot Mix Asphalt Concrete (HMAC)</li>
-                        <li>Foundations and Structural Observations</li>
-                    </ul>
-                    <p class="text-lg text-gray-200 mb-6">
-                        Testing and observations are performed by certified technicians in accordance with project specifications and applicable standards, with an emphasis on clear reporting and practical use of results.
-                    </p>
+                <div class="markdown-content">
+                    <h1>Construction Materials Testing</h1>
+<p>Tri Star provides construction materials testing and observation services to support quality control and quality assurance during construction. Our services focus on verifying that materials and workmanship comply with project specifications, approved mix designs, and applicable ASTM and TxDOT requirements. </p>
+<p>We work directly with contractors, engineers, and owners to provide timely field support, clear documentation, and reliable test results that keep projects moving and minimize delays.</p>
+<h2>Construction Materials Testing Services Include:</h2>
+<ul>
+<li>Earthwork and Subgrade</li>
+<li>Concrete</li>
+<li>Hot Mix Asphalt Concrete (HMAC)</li>
+<li>Foundations and Structural Observations </li>
+</ul>
+<p>Testing and observations are performed by certified technicians in accordance with project specifications and applicable standards, with an emphasis on clear reporting and practical use of results.</p>
                 </div>
                 <!-- Empty space for image on the right -->
                 <div class="hidden md:block"></div>
@@ -326,22 +339,23 @@
         <div class="container mx-auto px-6">
             <h2 class="text-4xl font-bold text-center mb-12 text-white">Get In Touch</h2>
             <div class="max-w-2xl mx-auto">
-                <form class="space-y-6">
+                <form id="contact-form" class="space-y-6">
                     <div>
                         <label class="block text-gray-300 mb-2 font-semibold">Name</label>
-                        <input type="text" class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-blue-500 text-white placeholder-gray-500" placeholder="Your name">
+                        <input id="contact-name" type="text" class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-blue-500 text-white placeholder-gray-500" placeholder="Your name" required>
                     </div>
                     <div>
                         <label class="block text-gray-300 mb-2 font-semibold">Email</label>
-                        <input type="email" class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-blue-500 text-white placeholder-gray-500" placeholder="your@email.com">
+                        <input id="contact-email" type="email" class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-blue-500 text-white placeholder-gray-500" placeholder="your@email.com" required>
                     </div>
                     <div>
                         <label class="block text-gray-300 mb-2 font-semibold">Message</label>
-                        <textarea rows="5" class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-blue-500 text-white placeholder-gray-500" placeholder="Your message"></textarea>
+                        <textarea id="contact-message" rows="5" class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-blue-500 text-white placeholder-gray-500" placeholder="Your message" required></textarea>
                     </div>
-                    <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition">
+                    <button id="contact-submit" type="submit" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition">
                         Send Message
                     </button>
+                    <p id="contact-status" class="text-center text-sm hidden"></p>
                 </form>
             </div>
         </div>
@@ -353,6 +367,43 @@
             <p>© 2025 TriStar. All rights reserved.</p>
         </div>
     </footer>
+
+    <!-- Contact form script -->
+    <script>
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const btn = document.getElementById('contact-submit');
+            const status = document.getElementById('contact-status');
+
+            btn.disabled = true;
+            btn.textContent = 'Sending...';
+            status.classList.add('hidden');
+
+            const params = {
+                name: document.getElementById('contact-name').value,
+                email: document.getElementById('contact-email').value,
+                message: document.getElementById('contact-message').value,
+            };
+
+            emailjs.send('service_6skrxqk', 'template_mehn5ym', params)
+                .then(function() {
+                    status.textContent = 'Message sent! We'll get back to you within 3 business days.';
+                    status.className = 'text-center text-sm text-green-400';
+                    status.classList.remove('hidden');
+                    document.getElementById('contact-form').reset();
+                })
+                .catch(function() {
+                    status.textContent = 'Something went wrong. Please try again or contact us directly.';
+                    status.className = 'text-center text-sm text-red-400';
+                    status.classList.remove('hidden');
+                })
+                .finally(function() {
+                    btn.disabled = false;
+                    btn.textContent = 'Send Message';
+                });
+        });
+    </script>
 
     <!-- Mobile menu toggle script -->
     <script>
