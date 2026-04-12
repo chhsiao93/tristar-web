@@ -287,6 +287,8 @@ def generate_html(general: Dict, hero: Dict, about: Dict, values: List,
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{general.get('site_title', 'TriStar')}</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script>emailjs.init("oRnmBJkQ_J53w0jQ4");</script>
     <style>
         /* Fade-in animation */
         .fade-in {{
@@ -463,22 +465,23 @@ def generate_html(general: Dict, hero: Dict, about: Dict, values: List,
         <div class="container mx-auto px-6">
             <h2 class="text-4xl font-bold text-center mb-12 text-white">{contact.get('title', 'Get In Touch')}</h2>
             <div class="max-w-2xl mx-auto">
-                <form class="space-y-6">
+                <form id="contact-form" class="space-y-6">
                     <div>
                         <label class="block text-gray-300 mb-2 font-semibold">{contact.get('name_label', 'Name')}</label>
-                        <input type="text" class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-blue-500 text-white placeholder-gray-500" placeholder="{contact.get('name_placeholder', 'Your name')}">
+                        <input id="contact-name" type="text" class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-blue-500 text-white placeholder-gray-500" placeholder="{contact.get('name_placeholder', 'Your name')}" required>
                     </div>
                     <div>
                         <label class="block text-gray-300 mb-2 font-semibold">{contact.get('email_label', 'Email')}</label>
-                        <input type="email" class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-blue-500 text-white placeholder-gray-500" placeholder="{contact.get('email_placeholder', 'your@email.com')}">
+                        <input id="contact-email" type="email" class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-blue-500 text-white placeholder-gray-500" placeholder="{contact.get('email_placeholder', 'your@email.com')}" required>
                     </div>
                     <div>
                         <label class="block text-gray-300 mb-2 font-semibold">{contact.get('message_label', 'Message')}</label>
-                        <textarea rows="5" class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-blue-500 text-white placeholder-gray-500" placeholder="{contact.get('message_placeholder', 'Your message')}"></textarea>
+                        <textarea id="contact-message" rows="5" class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-blue-500 text-white placeholder-gray-500" placeholder="{contact.get('message_placeholder', 'Your message')}" required></textarea>
                     </div>
-                    <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition">
+                    <button id="contact-submit" type="submit" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition">
                         {contact.get('button_text', 'Send Message')}
                     </button>
+                    <p id="contact-status" class="text-center text-sm hidden"></p>
                 </form>
             </div>
         </div>
@@ -490,6 +493,43 @@ def generate_html(general: Dict, hero: Dict, about: Dict, values: List,
             <p>{general.get('footer_text', '© 2025 TriStar. All rights reserved.')}</p>
         </div>
     </footer>
+
+    <!-- Contact form script -->
+    <script>
+        document.getElementById('contact-form').addEventListener('submit', function(e) {{
+            e.preventDefault();
+
+            const btn = document.getElementById('contact-submit');
+            const status = document.getElementById('contact-status');
+
+            btn.disabled = true;
+            btn.textContent = 'Sending...';
+            status.classList.add('hidden');
+
+            const params = {{
+                name: document.getElementById('contact-name').value,
+                email: document.getElementById('contact-email').value,
+                message: document.getElementById('contact-message').value,
+            }};
+
+            emailjs.send('service_6skrxqk', 'template_mehn5ym', params)
+                .then(function() {{
+                    status.textContent = 'Message sent! We\'ll get back to you within 3 business days.';
+                    status.className = 'text-center text-sm text-green-400';
+                    status.classList.remove('hidden');
+                    document.getElementById('contact-form').reset();
+                }})
+                .catch(function() {{
+                    status.textContent = 'Something went wrong. Please try again or contact us directly.';
+                    status.className = 'text-center text-sm text-red-400';
+                    status.classList.remove('hidden');
+                }})
+                .finally(function() {{
+                    btn.disabled = false;
+                    btn.textContent = 'Send Message';
+                }});
+        }});
+    </script>
 
     <!-- Mobile menu toggle script -->
     <script>
