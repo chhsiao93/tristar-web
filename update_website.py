@@ -168,7 +168,6 @@ def parse_core_values(data: List[Dict]) -> List[Dict[str, str]]:
     for row in data:
         if row.get('title'):
             values.append({
-                'icon': row.get('icon', '🎯'),
                 'title': row.get('title', ''),
                 'description': row.get('description', ''),
                 'color': row.get('color', '#3B82F6')
