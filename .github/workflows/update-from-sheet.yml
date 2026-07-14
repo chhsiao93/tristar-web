@@ -4,14 +4,14 @@ on:
   # Manual trigger - click "Run workflow" button in Actions tab
   workflow_dispatch:
 
-  # Automatic schedule - runs every 6 hours
-  schedule:
-    - cron: '0 0 */3 * *'  # once every 3 days
-    # Adjust the schedule as needed:
-    # '0 * * * *'    = Every hour
-    # '0 */2 * * *'  = Every 2 hours
-    # '0 */12 * * *' = Every 12 hours
-    # '0 0 * * *'    = Once per day at midnight
+  # Automatic schedule - disabled for now, running manually instead
+  # schedule:
+  #   - cron: '0 0 */3 * *'  # once every 3 days
+  #   # Adjust the schedule as needed:
+  #   # '0 * * * *'    = Every hour
+  #   # '0 */2 * * *'  = Every 2 hours
+  #   # '0 */12 * * *' = Every 12 hours
+  #   # '0 0 * * *'    = Once per day at midnight
 
 jobs:
   update-website:
