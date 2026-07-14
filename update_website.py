@@ -305,7 +305,7 @@ def generate_html(general: Dict, hero: Dict, about: Dict, values: List,
     <title>{general.get('site_title', 'TriStar')}</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    <script>emailjs.init("oRnmBJkQ_J53w0jQ4");</script>
+    <script>emailjs.init("{contact.get('emailjs_public_key', '')}");</script>
     <style>
         /* Fade-in animation */
         .fade-in {{
@@ -529,7 +529,7 @@ def generate_html(general: Dict, hero: Dict, about: Dict, values: List,
                 message: document.getElementById('contact-message').value,
             }};
 
-            emailjs.send('service_6skrxqk', 'template_mehn5ym', params)
+            emailjs.send('{contact.get('emailjs_service_id', '')}', '{contact.get('emailjs_template_id', '')}', params)
                 .then(function() {{
                     status.textContent = "Message sent! We'll get back to you within 3 business days.";
                     status.className = 'text-center text-sm text-green-400';
