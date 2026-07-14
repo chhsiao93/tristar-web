@@ -262,7 +262,6 @@ def generate_html(general: Dict, hero: Dict, about: Dict, values: List,
         f'''                <!-- Core Value {i+1} -->
                 <div class="group relative p-8 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden hover:scale-105 fade-in{' animation-delay-' + str((i+1)*200) if i > 0 else ''}" style="background-color: {value['color']}">
                     <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity"></div>
-                    <div class="text-white text-5xl mb-4 relative z-10">{value['icon']}</div>
                     <h3 class="text-2xl font-bold mb-4 text-white relative z-10">{value['title']}</h3>
                     <p class="text-white text-opacity-90 relative z-10">
                         {value['description']}
